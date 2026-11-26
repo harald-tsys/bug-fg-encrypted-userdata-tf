@@ -1,6 +1,6 @@
 # bug-fg-encrypted-userdata-tf
 
-Sample code for https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud/issues/
+Sample code for https://github.com/opentelekomcloud/terraform-provider-opentelekomcloud/issues/3653
 
 Using **encrypted_user_data** in **opentelekomcloud_fgs_function_v2** changes
 function on every **terraform apply**
@@ -15,7 +15,27 @@ Following environment variables must be set:
 | OTC_SDK_PROJECTNAME  | Project name e.g. eu_de                         |
 | OTC_IAM_ENDPOINT     | https://iam.eu-de.otc.t-systems.com/v3          |
 
-## Reproduce
+## Terraform provider version
+
+- 1.37.14
+
+## Affected Ressource
+
+- opentelekomcloud_fgs_function_v2
+  
+  Argument:
+
+  ```hcl
+  encrypted_user_data = jsonencode({
+    "ENCRYPTED" : "Hello World",
+  })
+  ```
+
+## Terraform Configuration Files
+
+see folder [terraform](./terraform)
+
+## Steps to Reproduce
 
 1. Set environment variables according to README.md
 2. change folder to terraform `cd terraform`
@@ -115,3 +135,11 @@ opentelekomcloud_fgs_function_v2.myfunction: Modifications complete after 1s [id
 
 Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 ```
+
+## Actual Behaviour
+
+Ressource is always changed.
+
+## Expected Behaviour
+
+Ressource is only changed if value is changed.
